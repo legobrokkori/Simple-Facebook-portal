@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FacebookService, InitParams, LoginOptions, LoginResponse } from 'ngx-facebook';
-import { Account, IRootObject } from 'src/app/models/account';
+import { IRootObject } from 'src/app/models/root';
+import { Account } from 'src/app/models/account';
 import { environment } from 'src/environments/environment';
+import { IFeed } from 'src/app/models/feed';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +49,7 @@ export class FbInitService {
   getPosts() {
     const pageId = localStorage.getItem('pageId');
     const pageAccessToken = localStorage.getItem('pageAccessToken');
-    //this.http.get(this.baseUrl + res.authResponse.userID + '/accounts?access_token=' + res.authResponse.accessToken)
+    return this.http.get<IRootObject<IFeed>>(this.baseUrl + pageId + '/feed?access_token=' + pageAccessToken);
   }
 
   private handleError(error) {

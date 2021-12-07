@@ -17,4 +17,8 @@ export class SliderBarComponent implements OnInit {
     this.fbService.login();
   }
 
+  loadPosta() {
+    this.fbService.getPosts()
+    .subscribe()
+  }
 }
