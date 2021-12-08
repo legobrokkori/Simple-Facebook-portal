@@ -4,6 +4,7 @@ import { PostItemComponent } from './post-item/post-item.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
 import { PostComponent } from './post.component';
 import { PostRoutingModule } from './post-routing.module';
+import { PostCommentComponent } from './post-comment/post-comment.component';
 
 
 
@@ -12,6 +13,7 @@ import { PostRoutingModule } from './post-routing.module';
     PostComponent,
     PostItemComponent,
     PostDetailsComponent,
+    PostCommentComponent,
   ],
   imports: [
     CommonModule,

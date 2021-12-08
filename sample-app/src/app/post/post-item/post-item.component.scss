@@ -1,0 +1,11 @@
+.post-link:hover {
+    background-color: #d5d5d5 !important
+}
+
+.post-link .fa {
+    transition: all 1s
+}
+
+.post-link:hover .fa {
+    transform: rotate(360deg)
+}

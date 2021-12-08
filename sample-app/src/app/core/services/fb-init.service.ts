@@ -5,6 +5,7 @@ import { IRootObject } from 'src/app/models/root';
 import { Account } from 'src/app/models/account';
 import { environment } from 'src/environments/environment';
 import { IFeed } from 'src/app/models/feed';
+import { IComments } from 'src/app/models/comment';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,11 @@ export class FbInitService {
     const pageId = localStorage.getItem('pageId');
     const pageAccessToken = localStorage.getItem('pageAccessToken');
     return this.http.get<IRootObject<IFeed>>(this.baseUrl + pageId + '/feed?access_token=' + pageAccessToken);
+  }
+
+  getComments(id: string) {
+    const pageAccessToken = localStorage.getItem('pageAccessToken');
+    return this.http.get<IRootObject<IComments>>(this.baseUrl + id + '/comments?access_token=' + pageAccessToken);
   }
 
   private handleError(error) {
