@@ -5,6 +5,7 @@ import { PostDetailsComponent } from './post-details/post-details.component';
 import { PostComponent } from './post.component';
 import { PostRoutingModule } from './post-routing.module';
 import { PostCommentComponent } from './post-comment/post-comment.component';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 
 
@@ -13,11 +14,12 @@ import { PostCommentComponent } from './post-comment/post-comment.component';
     PostComponent,
     PostItemComponent,
     PostDetailsComponent,
-    PostCommentComponent,
+    PostCommentComponent
   ],
   imports: [
     CommonModule,
-    PostRoutingModule
+    PostRoutingModule,
+    CollapseModule
   ]
 })
 export class PostModule { }

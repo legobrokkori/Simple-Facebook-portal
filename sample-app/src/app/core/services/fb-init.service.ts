@@ -5,7 +5,8 @@ import { IRootObject } from 'src/app/models/root';
 import { Account } from 'src/app/models/account';
 import { environment } from 'src/environments/environment';
 import { IFeed } from 'src/app/models/feed';
-import { IComments } from 'src/app/models/comment';
+import { IComments } from 'src/app/models/post';
+import { ICommentsAndLikes } from 'src/app/models/like';
 
 @Injectable({
   providedIn: 'root'
@@ -32,11 +33,10 @@ export class FbInitService {
     this.fb.login(this.options)
       .then((res: LoginResponse) => {
         console.log('Logged in', res);
+        localStorage.setItem('loginId', res.authResponse.userID);
         return this.fb.api(res.authResponse.userID + '/accounts', 'get', {
           access_token : res.authResponse.accessToken
         });
-        // return this.http.get(this.baseUrl + res.authResponse.userID + '/accounts?access_token=' + res.authResponse.accessToken)
-        // .toPromise();
       })
       .then((res: IRootObject<Account>) => {
         console.log(res);
@@ -55,7 +55,20 @@ export class FbInitService {
 
   getComments(id: string) {
     const pageAccessToken = localStorage.getItem('pageAccessToken');
+    return this.http.get<IRootObject<ICommentsAndLikes>>(this.baseUrl + id + '/comments?fields=likes.summary(true),created_time,from,message,id&access_token=' + pageAccessToken);
+  }
+
+  getReplies(id: string) {
+    const pageAccessToken = localStorage.getItem('pageAccessToken');
     return this.http.get<IRootObject<IComments>>(this.baseUrl + id + '/comments?access_token=' + pageAccessToken);
+  }
+
+  postReply(id: string, reply: string) {
+    const pageAccessToken = localStorage.getItem('pageAccessToken');
+    return this.http.post(this.baseUrl + id + '/comments', {
+      message: reply,
+      access_token: pageAccessToken
+    } );
   }
 
   private handleError(error) {

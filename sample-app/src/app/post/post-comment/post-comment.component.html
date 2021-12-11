@@ -1,9 +1,51 @@
-<div class="card p-3 mt-2 post-link" style="cursor: pointer;">
-    <div class="d-flex justify-content-between align-items-center">
-        <div class="user d-flex flex-row align-items-center"><span><small class="font-weight-bold">{{comment.message}} </small></span> </div> <small>3 days ago</small>
-    </div>
-    <div class="action d-flex justify-content-between mt-2 align-items-center">
-        <div class="reply px-4"> <small>Remove</small> <span class="dots"></span> <small>Reply</small> <span class="dots"></span> <small>Translate</small> </div>
-        <div class="icons align-items-center"> <i class="fa fa-check-circle-o check-icon text-primary"></i> </div>
+<div class="container mt-5">
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-8">
+            <div class="d-flex flex-column comment-section" id="myGroup">
+                <div class="bg-white p-2">
+                    <div class="d-flex flex-row user-info">
+                        <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">{{data.from.name}}</span><span class="date text-black-50">Shared publicly - Jan 2020</span></div>
+                    </div>
+                    <div class="mt-2">
+                        <p class="comment-text">{{data.message}}</p>
+                    </div>
+                </div>
+                <div class="bg-white p-2">
+                    <div class="d-flex flex-row fs-12">
+                        <div class="like p-2 cursor"><i class="fa fa-thumbs-o-up"></i><span class="ml-1">Like</span></div>
+                        <div class="like p-2 cursor action-collapse"  (click)="isCollapsed = !isCollapsed"
+                        [attr.aria-expanded]="!isCollapsed" aria-controls="collapse-1" ><i class="fa fa-commenting-o"></i><span class="ml-1">Reply</span></div>
+                    </div>
+                </div>
+                <div id="collapse-1" class="bg-light p-2 collapse" [collapse]="isCollapsed" [isAnimated]="true" (expands)="loadReplies(data.id)">
+                    <li style="list-style: none;" *ngFor="let reply of replies; let i = index">
+                        <div class="container mt-5">
+                            <div class="d-flex justify-content-center row">
+                                <div class="col-md-8">
+                                    <div class="d-flex flex-column comment-section" id="myGroup">
+                                        <div class="bg-white p-2">
+                                            <div class="d-flex flex-row user-info">
+                                                <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">{{reply.from.name}}</span><span class="date text-black-50">Shared publicly - Jan 2020</span></div>
+                                            </div>
+                                            <div class="mt-2">
+                                                <p class="comment-text">{{reply.message}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="bg-white p-2">
+                                            <div class="d-flex flex-row fs-12">
+                                                <div class="like p-2 cursor"><i class="fa fa-thumbs-o-up"></i><span class="ml-1">Like</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </li>
+
+                    <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="40"><textarea #replyInput class="form-control ml-1 shadow-none textarea"></textarea></div>
+                    <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="button" (click)="postReply(data.id, replyInput.value)">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

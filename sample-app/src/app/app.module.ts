@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -8,12 +8,13 @@ import { CoreModule } from './core/core.module';
 import { FacebookModule } from 'ngx-facebook';
 import { LoginComponent } from './account/login/login.component';
 import { HomeComponent } from './home/home.component';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +22,8 @@ import { HomeComponent } from './home/home.component';
     BrowserAnimationsModule,
     HttpClientModule,
     CoreModule,
-    FacebookModule
+    FacebookModule, 
+    CollapseModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
