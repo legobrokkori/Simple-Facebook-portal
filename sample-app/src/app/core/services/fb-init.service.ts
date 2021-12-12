@@ -71,6 +71,18 @@ export class FbInitService {
     } );
   }
 
+  postLike(id: string) {
+    const pageAccessToken = localStorage.getItem('pageAccessToken');
+    return this.http.post(this.baseUrl + id + '/likes', {
+      access_token: pageAccessToken
+    } );
+  }
+
+  deleteLike(id: string) {
+    const pageAccessToken = localStorage.getItem('pageAccessToken');
+    return this.http.delete(this.baseUrl + id + '/likes?access_token=' + pageAccessToken);
+  }
+
   private handleError(error) {
     console.error('Error processing action', error);
   }

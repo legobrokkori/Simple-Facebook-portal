@@ -63,3 +63,11 @@ body {
 }
 
 
+.liked {
+    color: blue;
+    cursor: pointer;
+}
+
+.liked:hover {
+    color: gray
+}

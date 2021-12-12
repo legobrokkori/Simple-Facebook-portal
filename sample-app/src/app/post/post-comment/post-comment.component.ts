@@ -13,11 +13,13 @@ export class PostCommentComponent implements OnInit {
   @Input() data: ICommentsAndLikes;
   replies: IComments[];
   isCollapsed = false;
+  hasLike: boolean
   page: IPaging;
   
   constructor(private fbService: FbInitService) { }
 
   ngOnInit(): void {
+    this.hasLike = this.data.likes.summary.has_liked;
   }
 
   postReply(id: string, reply: string) {
@@ -37,5 +39,28 @@ export class PostCommentComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  postLike(id: string) {
+
+    if (this.hasLike) {
+      this.fbService.deleteLike(id).subscribe(res => {
+        console.log("delete" + id);
+        console.log(res);
+        console.log(this.hasLike);
+        this.hasLike = false;
+      }, error => {
+        console.log(error);
+      });
+    } else {
+      this.fbService.postLike(id).subscribe(res => {
+        console.log("post" + id);
+        console.log(res);
+        console.log(this.hasLike);
+        this.hasLike = true;
+      }, error => {
+        console.log(error);
+      });
+    }
   }
 }
