@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { IFeed } from 'src/app/models/feed';
 import { IComments } from 'src/app/models/post';
 import { ICommentsAndLikes } from 'src/app/models/like';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class FbInitService {
   };
   baseUrl = environment.apiUrl;
 
-  constructor(private fb: FacebookService, private http: HttpClient) {
+  constructor(private fb: FacebookService, private http: HttpClient, private router: Router) {
     const initParams: InitParams = {
       appId: environment.facebookAppId,
       cookie: true,
@@ -43,6 +44,9 @@ export class FbInitService {
         localStorage.setItem('pageId', res.data[0].id);
         localStorage.setItem('pageAccessToken', res.data[0].access_token);
       })
+      .then(() => {
+        this.router.navigate(['/']);
+      })
       .catch(this.handleError);
 
   }
@@ -51,6 +55,15 @@ export class FbInitService {
     const pageId = localStorage.getItem('pageId');
     const pageAccessToken = localStorage.getItem('pageAccessToken');
     return this.http.get<IRootObject<IFeed>>(this.baseUrl + pageId + '/feed?access_token=' + pageAccessToken);
+  }
+
+  showMore(url: string) {
+    return this.http.get<IRootObject<IFeed>>(url);
+  }
+
+  getPost(id: string) {
+    const pageAccessToken = localStorage.getItem('pageAccessToken');
+    return this.http.get<IComments>(this.baseUrl + id + '?access_token=' + pageAccessToken);
   }
 
   getComments(id: string) {
@@ -67,6 +80,14 @@ export class FbInitService {
     const pageAccessToken = localStorage.getItem('pageAccessToken');
     return this.http.post(this.baseUrl + id + '/comments', {
       message: reply,
+      access_token: pageAccessToken
+    } );
+  }
+
+  postComment(id: string, comment: string) {
+    const pageAccessToken = localStorage.getItem('pageAccessToken');
+    return this.http.post(this.baseUrl + id + '/comments', {
+      message: comment,
       access_token: pageAccessToken
     } );
   }

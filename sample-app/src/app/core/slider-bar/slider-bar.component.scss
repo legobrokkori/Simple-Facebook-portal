@@ -13,3 +13,9 @@ body {
 .nav-link:hover .fa {
     transform: rotate(360deg)
 }
+
+a {
+    &.active {
+        color: active;
+    }
+}

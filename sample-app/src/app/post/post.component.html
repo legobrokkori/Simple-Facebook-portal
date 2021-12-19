@@ -1,10 +1,13 @@
-<div class="height-100 bg-light d-flex justify-content-center" style="margin-left: 280px;">
+<div class="height-100 bg-light d-flex justify-content-center align-self  vw-100">
     <div class="container mt-5">
         <h1>Posts</h1>
         <div class="row d-flex justify-content-center">
-            <div class="col-md-8" *ngFor="let feed of feeds">
+            <div class="col-md-10" *ngFor="let feed of feeds">
                 <app-post-item [feed]="feed"></app-post-item>
             </div>
+        </div>
+        <div class="row d-flex justify-content-center" *ngIf="this.page !== undefined && this.page.next">
+            <a (click)="showMore()" id="loadMore" role="button">+ Load More</a>
         </div>
     </div>
 </div>

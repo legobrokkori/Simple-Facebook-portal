@@ -6,8 +6,3 @@ export interface IComments {
     message: string;
     id: string;
 }
-
-// export interface IFrom {
-//     name: string;
-//     id: string;
-// }

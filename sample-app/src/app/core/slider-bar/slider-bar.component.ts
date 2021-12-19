@@ -13,10 +13,6 @@ export class SliderBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login() {
-    this.fbService.login();
-  }
-
   loadPosta() {
     this.fbService.getPosts()
     .subscribe()

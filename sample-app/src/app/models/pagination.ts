@@ -1,6 +1,7 @@
 
 export interface IPaging {
     cursors: ICursors;
+    next: string;
 }
 
 export interface ICursors {
